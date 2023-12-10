@@ -27,8 +27,13 @@ spec:
   version: "${VERSION}"
   destinations:
     - "postgresql"
+    # - sqlite
   spec:
-    # plugin spec section
+    # destination: ./database.sql # if using sqlite
+    customer_id: your Google Workspace Customer ID
+    oauth:
+      client_id: your Google Cloud Project OAuth Client ID
+      client_secret: your Google Cloud Project OAuth Client Secret
 ```
 
 ## Development
