@@ -15,6 +15,18 @@ and many more.
 
 ## Configuration
 
+### Setting up your Google OAuth Project
+
+1. Create a new project in the
+   [Google Cloud Console](https://console.cloud.google.com/)
+1. Go to APIs and Services and enable the "Admin SDK API"
+1. Go to the "Credentials" page
+1. Create a new OAuth Client ID for a Desktop app
+1. Make note of your client ID and client secret. Use this in your spec
+   configuration.
+
+### Source Configuration
+
 The following source configuration file will sync to a PostgreSQL database. See
 [the CloudQuery Quickstart](https://www.cloudquery.io/docs/quickstart) for more
 information on how to configure the source and destination.
@@ -24,12 +36,11 @@ kind: source
 spec:
   name: "googleworkspace"
   path: "jsifuentes/googleworkspace"
-  version: "${VERSION}"
+  registry: "github"
+  version: "v1.0.0"
   destinations:
     - "postgresql"
-    # - sqlite
   spec:
-    # destination: ./database.sql # if using sqlite
     customer_id: your Google Workspace Customer ID
     oauth:
       client_id: your Google Cloud Project OAuth Client ID
