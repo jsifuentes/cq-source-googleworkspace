@@ -7,6 +7,7 @@ import (
 	"github.com/cloudquery/plugin-sdk/plugins/source"
 	"github.com/cloudquery/plugin-sdk/schema"
 	"github.com/jsifuentes/cq-source-googleworkspace/client"
+	"github.com/jsifuentes/cq-source-googleworkspace/resources/services/chrome"
 	"github.com/jsifuentes/cq-source-googleworkspace/resources/services/domains"
 	"github.com/jsifuentes/cq-source-googleworkspace/resources/services/groups"
 	"github.com/jsifuentes/cq-source-googleworkspace/resources/services/resources"
@@ -45,6 +46,7 @@ func Plugin() *source.Plugin {
 			resources.BuildingsTable(),
 			resources.CalendarsTable(),
 			users.OrgUnitsTable(),
+			chrome.ChromeDevicesTable(),
 		},
 		client.Configure,
 		source.WithTitleTransformer(titleTransformer),

@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"golang.org/x/oauth2"
+	directory "google.golang.org/api/admin/directory/v1"
 )
 
 type oauthSpec struct {
@@ -37,7 +38,21 @@ func (o *oauthSpec) validate() error {
 	}
 }
 
-func (o *oauthSpec) getTokenSource(ctx context.Context, endpoint oauth2.Endpoint, scopes ...string) (oauth2.TokenSource, error) {
+func (o *oauthSpec) getTokenSource(ctx context.Context, endpoint oauth2.Endpoint) (oauth2.TokenSource, error) {
+	scopes := []string{
+		directory.AdminDirectoryCustomerReadonlyScope,
+		directory.AdminDirectoryDomainReadonlyScope,
+		directory.AdminDirectoryGroupMemberReadonlyScope,
+		directory.AdminDirectoryGroupReadonlyScope,
+		directory.AdminDirectoryOrgunitReadonlyScope,
+		directory.AdminDirectoryUserAliasReadonlyScope,
+		directory.AdminDirectoryUserReadonlyScope,
+		directory.AdminDirectoryUserschemaReadonlyScope,
+		directory.AdminDirectoryResourceCalendarReadonlyScope,
+		directory.AdminDirectoryDeviceChromeosReadonlyScope,
+		directory.AdminChromePrintersReadonlyScope,
+	}
+
 	if len(o.AccessToken) > 0 {
 		return oauth2.StaticTokenSource(&oauth2.Token{AccessToken: o.AccessToken}), nil
 	}

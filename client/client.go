@@ -45,19 +45,7 @@ func Configure(ctx context.Context, logger zerolog.Logger, srcSpec specs.Source,
 	}
 
 	if spec.OAuth != nil {
-		tokenSource, err := spec.OAuth.getTokenSource(
-			ctx,
-			google.Endpoint,
-			directory.AdminDirectoryCustomerReadonlyScope,
-			directory.AdminDirectoryDomainReadonlyScope,
-			directory.AdminDirectoryGroupMemberReadonlyScope,
-			directory.AdminDirectoryGroupReadonlyScope,
-			directory.AdminDirectoryOrgunitReadonlyScope,
-			directory.AdminDirectoryUserAliasReadonlyScope,
-			directory.AdminDirectoryUserReadonlyScope,
-			directory.AdminDirectoryUserschemaReadonlyScope,
-			directory.AdminDirectoryResourceCalendarReadonlyScope,
-		)
+		tokenSource, err := spec.OAuth.getTokenSource(ctx, google.Endpoint)
 		if err != nil {
 			return nil, err
 		}
