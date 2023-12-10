@@ -2,6 +2,7 @@
 
 ## Tables
 
+- [googleworkspace_chrome_devices](googleworkspace_chrome_devices.md)
 - [googleworkspace_domains](googleworkspace_domains.md)
 - [googleworkspace_groups](googleworkspace_groups.md)
   - [googleworkspace_group_aliases](googleworkspace_group_aliases.md)
