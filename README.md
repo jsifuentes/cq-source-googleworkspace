@@ -36,7 +36,7 @@ spec:
   name: "googleworkspace"
   path: "jsifuentes/googleworkspace"
   registry: "github"
-  version: "v1.0.0"
+  version: "v1.0.1"
   destinations:
     - "postgresql"
   spec:
