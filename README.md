@@ -20,9 +20,7 @@ The following source configuration file will sync to a PostgreSQL database. See
 information on how to configure the source and destination.
 
 If `token_file` is set, after you successfully authenticate via OAuth, your
-access token will be written to the `token_file`. Since the plugin server is the
-one writing the file, the file is written relative to the plugin server working
-directory. You can also use an absolute path like `/tmp/token.json`
+access token will be written to the `token_file`.
 
 How to find your Google Workspace Customer ID:
 https://support.google.com/a/answer/10070793?hl=en
@@ -42,7 +40,7 @@ spec:
   spec:
     customer_id: your Google Workspace Customer ID
     oauth:
-      # token_file: /tmp/token.json or /path/relative/to/plugin/server
+      # token_file: ./token.js
       client_id: your Google Cloud Project OAuth Client ID
       client_secret: your Google Cloud Project OAuth Client Secret
 ```
