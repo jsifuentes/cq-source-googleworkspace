@@ -1,17 +1,16 @@
 ---
-name: GitHub
+name: googleworkspace
 stage: GA
-title: GitHub Source Plugin
-description: CloudQuery GitHub source plugin documentation
+title: Google Workspace
+description: CloudQuery Google Workspace source plugin documentation
 ---
 
-# GitHub Source Plugin
+# Google Workspace Source Plugin
 
-:badge
-
-The CloudQuery GitHub plugin extracts your GitHub API and loads it into any
-supported CloudQuery destination (e.g. PostgreSQL, BigQuery, Snowflake, and
-[more](/docs/plugins/destinations/overview)).
+A Google Workspace source plugin for CloudQuery that loads data from Google
+Workspace to any database, data warehouse or data lake supported by
+[CloudQuery](https://www.cloudquery.io/), such as PostgreSQL, BigQuery, Athena,
+and many more.
 
 ## Configuration
 
