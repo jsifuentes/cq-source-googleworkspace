@@ -15,11 +15,6 @@ and many more.
 
 ## Configuration
 
-You can get your own OAuth credentials using
-[this guide](https://developers.google.com/identity/protocols/oauth2#1.-obtain-oauth-2.0-credentials-from-the-dynamic_data.setvar.console_name-.).
-
-### Source Configuration
-
 The following source configuration file will sync to a PostgreSQL database. See
 [the CloudQuery Quickstart](https://www.cloudquery.io/docs/quickstart) for more
 information on how to configure the source and destination.
@@ -31,6 +26,9 @@ directory. You can also use an absolute path like `/tmp/token.json`
 
 How to find your Google Workspace Customer ID:
 https://support.google.com/a/answer/10070793?hl=en
+
+You can get your own OAuth credentials using
+[this guide](https://developers.google.com/identity/protocols/oauth2#1.-obtain-oauth-2.0-credentials-from-the-dynamic_data.setvar.console_name-.).
 
 ```yaml
 kind: source
