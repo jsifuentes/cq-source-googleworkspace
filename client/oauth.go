@@ -4,9 +4,11 @@ import (
 	"context"
 	"crypto/rand"
 	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"net"
 	"net/http"
+	"os"
 	"os/exec"
 	"strings"
 
@@ -15,19 +17,14 @@ import (
 )
 
 type oauthSpec struct {
-	AccessToken  string `json:"access_token,omitempty"`
+	TokenFile    string `json:"token_file,omitempty"`
 	ClientID     string `json:"client_id,omitempty"`
 	ClientSecret string `json:"client_secret,omitempty"`
 }
 
 func (o *oauthSpec) validate() error {
-	if o == nil {
-		// OAuth is optional
-		return nil
-	}
-
 	switch {
-	case len(o.AccessToken) > 0:
+	case len(o.TokenFile) > 0:
 		return nil
 	case len(o.ClientID) == 0:
 		return fmt.Errorf("empty client_id in oauth spec")
@@ -36,6 +33,26 @@ func (o *oauthSpec) validate() error {
 	default:
 		return nil
 	}
+}
+
+func (o *oauthSpec) getTokenFromFile() (*oauth2.Token, error) {
+	f, err := os.Open(o.TokenFile)
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+	tok := &oauth2.Token{}
+	err = json.NewDecoder(f).Decode(tok)
+	return tok, err
+}
+
+func (o *oauthSpec) saveTokenToFile(token *oauth2.Token) error {
+	f, err := os.OpenFile(o.TokenFile, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0600)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	return json.NewEncoder(f).Encode(token)
 }
 
 func (o *oauthSpec) getTokenSource(ctx context.Context, endpoint oauth2.Endpoint) (oauth2.TokenSource, error) {
@@ -53,10 +70,6 @@ func (o *oauthSpec) getTokenSource(ctx context.Context, endpoint oauth2.Endpoint
 		directory.AdminChromePrintersReadonlyScope,
 	}
 
-	if len(o.AccessToken) > 0 {
-		return oauth2.StaticTokenSource(&oauth2.Token{AccessToken: o.AccessToken}), nil
-	}
-
 	lst, err := net.Listen("tcp4", "127.0.0.1:0")
 	if err != nil {
 		return nil, err
@@ -68,6 +81,15 @@ func (o *oauthSpec) getTokenSource(ctx context.Context, endpoint oauth2.Endpoint
 		Endpoint:     endpoint,
 		RedirectURL:  "http://" + lst.Addr().String(),
 		Scopes:       scopes,
+	}
+
+	if len(o.TokenFile) > 0 {
+		savedToken, err := o.getTokenFromFile()
+		if err == nil {
+			return config.TokenSource(context.Background(), savedToken), nil
+		} else if o.ClientID == "" || o.ClientSecret == "" {
+			return nil, err
+		}
 	}
 
 	b := make([]byte, 16)
@@ -99,6 +121,12 @@ func (o *oauthSpec) getTokenSource(ctx context.Context, endpoint oauth2.Endpoint
 	token, err := config.Exchange(ctx, handler.code, oauth2.AccessTypeOffline)
 	if err != nil {
 		return nil, err
+	}
+
+	if o.TokenFile != "" {
+		if err := o.saveTokenToFile(token); err != nil {
+			return nil, err
+		}
 	}
 
 	return config.TokenSource(context.Background(), token), nil

@@ -15,21 +15,22 @@ and many more.
 
 ## Configuration
 
-### Setting up your Google OAuth Project
-
-1. Create a new project in the
-   [Google Cloud Console](https://console.cloud.google.com/)
-1. Go to APIs and Services and enable the "Admin SDK API"
-1. Go to the "Credentials" page
-1. Create a new OAuth Client ID for a Desktop app
-1. Make note of your client ID and client secret. Use this in your spec
-   configuration.
+You can get your own OAuth credentials using
+[this guide](https://developers.google.com/identity/protocols/oauth2#1.-obtain-oauth-2.0-credentials-from-the-dynamic_data.setvar.console_name-.).
 
 ### Source Configuration
 
 The following source configuration file will sync to a PostgreSQL database. See
 [the CloudQuery Quickstart](https://www.cloudquery.io/docs/quickstart) for more
 information on how to configure the source and destination.
+
+If `token_file` is set, after you successfully authenticate via OAuth, your
+access token will be written to the `token_file`. Since the plugin server is the
+one writing the file, the file is written relative to the plugin server working
+directory. You can also use an absolute path like `/tmp/token.json`
+
+How to find your Google Workspace Customer ID:
+https://support.google.com/a/answer/10070793?hl=en
 
 ```yaml
 kind: source
@@ -43,6 +44,7 @@ spec:
   spec:
     customer_id: your Google Workspace Customer ID
     oauth:
+      # token_file: /tmp/token.json or /path/relative/to/plugin/server
       client_id: your Google Cloud Project OAuth Client ID
       client_secret: your Google Cloud Project OAuth Client Secret
 ```
