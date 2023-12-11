@@ -20,7 +20,8 @@ The following source configuration file will sync to a PostgreSQL database. See
 information on how to configure the source and destination.
 
 If `token_file` is set, after you successfully authenticate via OAuth, your
-access token will be written to the `token_file`.
+access token will be written to the `token_file`. The `token_file` will be used
+on subsequent syncs.
 
 How to find your Google Workspace Customer ID:
 https://support.google.com/a/answer/10070793?hl=en
