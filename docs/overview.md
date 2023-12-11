@@ -7,27 +7,17 @@ description: CloudQuery Google Workspace source plugin documentation
 
 # Google Workspace Source Plugin
 
-A Google Workspace source plugin for CloudQuery that loads data from Google
-Workspace to any database, data warehouse or data lake supported by
-[CloudQuery](https://www.cloudquery.io/), such as PostgreSQL, BigQuery, Athena,
-and many more.
+A Google Workspace source plugin for CloudQuery that loads data from Google Workspace to any database, data warehouse or data lake supported by [CloudQuery](https://www.cloudquery.io/), such as PostgreSQL, BigQuery, Athena, and many more.
 
 ## Configuration
 
-The following source configuration file will sync to a PostgreSQL database. See
-[the CloudQuery Quickstart](https://www.cloudquery.io/docs/quickstart) for more
-information on how to configure the source and destination.
+The following source configuration file will sync to a PostgreSQL database. See [the CloudQuery Quickstart](https://www.cloudquery.io/docs/quickstart) for more information on how to configure the source and destination.
 
-If `token_file` is set, after you successfully authenticate via OAuth, your
-access token will be written to the `token_file`. The `token_file` will be used
-on subsequent syncs.
+If `token_file` is set, after you successfully authenticate via OAuth, your access token will be written to the `token_file`. The `token_file` will be used on subsequent syncs.
 
-How to find your Google Workspace Customer ID:
-https://support.google.com/a/answer/10070793?hl=en
+How to find your Google Workspace Customer ID: https://support.google.com/a/answer/10070793?hl=en
 
-You can get your own OAuth credentials using
-[this guide](https://developers.google.com/identity/protocols/oauth2#1.-obtain-oauth-2.0-credentials-from-the-dynamic_data.setvar.console_name-.).
-You need to enable the Admin SDK API for your Cloud Project.
+You can get your own OAuth credentials using [this guide](https://developers.google.com/identity/protocols/oauth2#1.-obtain-oauth-2.0-credentials-from-the-dynamic_data.setvar.console_name-.). You need to enable the Admin SDK API for your Cloud Project.
 
 ```yaml
 kind: source
