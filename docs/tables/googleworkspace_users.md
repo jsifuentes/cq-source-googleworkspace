@@ -1,6 +1,6 @@
 # Table: googleworkspace_users
 
-This table shows data for Google Workspace Users.
+This table shows data for Googleworkspace Users.
 
 Google Workspace Users
 
@@ -15,40 +15,38 @@ The following tables depend on googleworkspace_users:
 
 | Name          | Type          |
 | ------------- | ------------- |
-|_cq_source_name|String|
-|_cq_sync_time|Timestamp|
-|_cq_id|UUID|
-|_cq_parent_id|UUID|
-|customer_id|String|
-|first_name|String|
-|last_name|String|
-|agreed_to_terms|Bool|
-|aliases|StringArray|
-|archived|Bool|
-|change_password_at_next_login|Bool|
-|creation_time|String|
-|custom_schemas|JSON|
-|deletion_time|String|
-|etag|String|
-|hash_function|String|
-|id (PK)|String|
-|include_in_global_address_list|Bool|
-|ip_whitelisted|Bool|
-|is_admin|Bool|
-|is_delegated_admin|Bool|
-|is_enforced_in2_sv|Bool|
-|is_enrolled_in2_sv|Bool|
-|is_mailbox_setup|Bool|
-|kind|String|
-|last_login_time|String|
-|name|JSON|
-|non_editable_aliases|StringArray|
-|org_unit_path|String|
-|password|String|
-|primary_email|String|
-|recovery_email|String|
-|recovery_phone|String|
-|suspended|Bool|
-|suspension_reason|String|
-|thumbnail_photo_etag|String|
-|thumbnail_photo_url|String|
+|_cq_id|`uuid`|
+|_cq_parent_id|`uuid`|
+|customer_id|`utf8`|
+|first_name|`utf8`|
+|last_name|`utf8`|
+|agreed_to_terms|`bool`|
+|aliases|`list<item: utf8, nullable>`|
+|archived|`bool`|
+|change_password_at_next_login|`bool`|
+|creation_time|`utf8`|
+|custom_schemas|`json`|
+|deletion_time|`utf8`|
+|etag|`utf8`|
+|hash_function|`utf8`|
+|id (PK)|`utf8`|
+|include_in_global_address_list|`bool`|
+|ip_whitelisted|`bool`|
+|is_admin|`bool`|
+|is_delegated_admin|`bool`|
+|is_enforced_in2_sv|`bool`|
+|is_enrolled_in2_sv|`bool`|
+|is_mailbox_setup|`bool`|
+|kind|`utf8`|
+|last_login_time|`utf8`|
+|name|`json`|
+|non_editable_aliases|`list<item: utf8, nullable>`|
+|org_unit_path|`utf8`|
+|password|`utf8`|
+|primary_email|`utf8`|
+|recovery_email|`utf8`|
+|recovery_phone|`utf8`|
+|suspended|`bool`|
+|suspension_reason|`utf8`|
+|thumbnail_photo_etag|`utf8`|
+|thumbnail_photo_url|`utf8`|

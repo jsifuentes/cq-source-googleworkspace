@@ -1,6 +1,6 @@
 # Table: googleworkspace_user_aliases
 
-This table shows data for Google Workspace User Aliases.
+This table shows data for Googleworkspace User Aliases.
 
 Google Workspace User Aliases
 
@@ -14,10 +14,8 @@ This table depends on [googleworkspace_users](googleworkspace_users.md).
 
 | Name          | Type          |
 | ------------- | ------------- |
-|_cq_source_name|String|
-|_cq_sync_time|Timestamp|
-|_cq_id|UUID|
-|_cq_parent_id|UUID|
-|user_id (PK)|String|
-|user_primary_email|String|
-|alias (PK)|String|
+|_cq_id|`uuid`|
+|_cq_parent_id|`uuid`|
+|user_id (PK)|`utf8`|
+|user_primary_email|`utf8`|
+|alias (PK)|`utf8`|

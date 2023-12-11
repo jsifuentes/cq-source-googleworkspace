@@ -1,6 +1,6 @@
 # Table: googleworkspace_resources_buildings
 
-This table shows data for Google Workspace Resources Buildings.
+This table shows data for Googleworkspace Resources Buildings.
 
 Google Workspace Resources Buildings
 
@@ -10,16 +10,14 @@ The primary key for this table is **building_id**.
 
 | Name          | Type          |
 | ------------- | ------------- |
-|_cq_source_name|String|
-|_cq_sync_time|Timestamp|
-|_cq_id|UUID|
-|_cq_parent_id|UUID|
-|customer_id|String|
-|address|JSON|
-|building_id (PK)|String|
-|building_name|String|
-|coordinates|JSON|
-|description|String|
-|etags|String|
-|floor_names|StringArray|
-|kind|String|
+|_cq_id|`uuid`|
+|_cq_parent_id|`uuid`|
+|customer_id|`utf8`|
+|address|`json`|
+|building_id (PK)|`utf8`|
+|building_name|`utf8`|
+|coordinates|`json`|
+|description|`utf8`|
+|etags|`utf8`|
+|floor_names|`list<item: utf8, nullable>`|
+|kind|`utf8`|

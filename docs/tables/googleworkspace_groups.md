@@ -1,6 +1,6 @@
 # Table: googleworkspace_groups
 
-This table shows data for Google Workspace Groups.
+This table shows data for Googleworkspace Groups.
 
 Google Workspace Groups
 
@@ -16,18 +16,16 @@ The following tables depend on googleworkspace_groups:
 
 | Name          | Type          |
 | ------------- | ------------- |
-|_cq_source_name|String|
-|_cq_sync_time|Timestamp|
-|_cq_id|UUID|
-|_cq_parent_id|UUID|
-|customer_id|String|
-|admin_created|Bool|
-|aliases|StringArray|
-|description|String|
-|direct_members_count|Int|
-|email|String|
-|etag|String|
-|id (PK)|String|
-|kind|String|
-|name|String|
-|non_editable_aliases|StringArray|
+|_cq_id|`uuid`|
+|_cq_parent_id|`uuid`|
+|customer_id|`utf8`|
+|admin_created|`bool`|
+|aliases|`list<item: utf8, nullable>`|
+|description|`utf8`|
+|direct_members_count|`int64`|
+|email|`utf8`|
+|etag|`utf8`|
+|id (PK)|`utf8`|
+|kind|`utf8`|
+|name|`utf8`|
+|non_editable_aliases|`list<item: utf8, nullable>`|

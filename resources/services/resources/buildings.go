@@ -3,8 +3,8 @@ package resources
 import (
 	"context"
 
-	"github.com/cloudquery/plugin-sdk/schema"
-	"github.com/cloudquery/plugin-sdk/transformers"
+	"github.com/cloudquery/plugin-sdk/v4/schema"
+	"github.com/cloudquery/plugin-sdk/v4/transformers"
 	"github.com/jsifuentes/cq-source-googleworkspace/client"
 	directory "google.golang.org/api/admin/directory/v1"
 )
@@ -23,7 +23,7 @@ func BuildingsTable() *schema.Table {
 
 func fetchBuildings(ctx context.Context, meta schema.ClientMeta, _ *schema.Resource, res chan<- any) error {
 	c := meta.(*client.Client)
-	return c.DirectoryService.Resources.Buildings.List(c.CustomerID).Pages(ctx, func(buildings *directory.Buildings) error {
+	return c.DirectoryService.Resources.Buildings.List(c.Spec.CustomerID).Pages(ctx, func(buildings *directory.Buildings) error {
 		for _, b := range buildings.Buildings {
 			res <- b
 		}

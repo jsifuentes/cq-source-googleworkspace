@@ -1,6 +1,6 @@
 # Table: googleworkspace_domains
 
-This table shows data for Google Workspace Domains.
+This table shows data for Googleworkspace Domains.
 
 Google Workspace Domains
 
@@ -10,15 +10,13 @@ The primary key for this table is **domain_name**.
 
 | Name          | Type          |
 | ------------- | ------------- |
-|_cq_source_name|String|
-|_cq_sync_time|Timestamp|
-|_cq_id|UUID|
-|_cq_parent_id|UUID|
-|customer_id|String|
-|creation_time|Int|
-|domain_aliases|JSON|
-|domain_name (PK)|String|
-|etag|String|
-|is_primary|Bool|
-|kind|String|
-|verified|Bool|
+|_cq_id|`uuid`|
+|_cq_parent_id|`uuid`|
+|customer_id|`utf8`|
+|creation_time|`int64`|
+|domain_aliases|`json`|
+|domain_name (PK)|`utf8`|
+|etag|`utf8`|
+|is_primary|`bool`|
+|kind|`utf8`|
+|verified|`bool`|

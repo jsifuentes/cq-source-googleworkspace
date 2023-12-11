@@ -22,3 +22,4 @@ cq-source-googleworkspace
 dist
 *.log
 __debug*
+token.json

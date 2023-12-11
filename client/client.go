@@ -3,9 +3,6 @@ package client
 import (
 	"context"
 
-	"github.com/cloudquery/plugin-sdk/plugins/source"
-	"github.com/cloudquery/plugin-sdk/schema"
-	"github.com/cloudquery/plugin-sdk/specs"
 	"github.com/rs/zerolog"
 	"golang.org/x/oauth2/google"
 	directory "google.golang.org/api/admin/directory/v1"
@@ -13,60 +10,50 @@ import (
 )
 
 type Client struct {
-	DirectoryService *directory.Service
-	CustomerID       string
 	logger           zerolog.Logger
+	Spec             Spec
+	DirectoryService *directory.Service
 }
 
-var _ schema.ClientMeta = (*Client)(nil)
+func (c *Client) ID() string {
+	// TODO: Change to either your plugin name or a unique dynamic identifier
+	return "googleworkspace:customer:{" + c.Spec.CustomerID + "}"
+}
 
 func (c *Client) Logger() *zerolog.Logger {
 	return &c.logger
 }
 
-func (c *Client) ID() string {
-	return "googleworkspace:customer:{" + c.CustomerID + "}"
-}
-
-func Configure(ctx context.Context, logger zerolog.Logger, srcSpec specs.Source, options source.Options) (schema.ClientMeta, error) {
-	spec := new(Spec)
-	if err := srcSpec.UnmarshalSpec(&spec); err != nil {
-		return nil, err
+func New(ctx context.Context, logger zerolog.Logger, s *Spec) (Client, error) {
+	c := Client{
+		logger: logger.With().
+			Str("plugin", "googleworkspace").
+			Str("customer_id", s.CustomerID).
+			Logger(),
+		Spec: *s,
 	}
 
-	if err := spec.validate(); err != nil {
-		return nil, err
+	if err := s.validate(); err != nil {
+		return c, err
 	}
 
-	opts := []option.ClientOption{
-		// option.WithRequestReason("cloudquery resource fetch"),
-		// we disable telemetry to boost performance and be on the safe side with telemetry
-		// option.WithTelemetryDisabled(),
-	}
+	opts := []option.ClientOption{}
 
-	if spec.OAuth != nil {
-		tokenSource, err := spec.OAuth.getTokenSource(ctx, google.Endpoint)
+	if c.Spec.OAuth != nil {
+		tokenSource, err := c.Spec.OAuth.getTokenSource(ctx, google.Endpoint)
 		if err != nil {
-			return nil, err
+			return c, err
 		}
 		opts = append(opts, option.WithTokenSource(tokenSource))
 	}
 
-	svc, err := directory.NewService(ctx, opts...)
+	service, err := directory.NewService(ctx, opts...)
 	if err != nil {
-		return nil, err
+		return c, err
 	}
 
-	svc.UserAgent = "cloudquery:source-googleworkspace/" + srcSpec.Version
-
-	c := &Client{
-		DirectoryService: svc,
-		CustomerID:       spec.CustomerID,
-		logger: logger.With().
-			Str("plugin", "googleworkspace").
-			Str("customer_id", spec.CustomerID).
-			Logger(),
-	}
+	service.UserAgent = "cloudquery:source-googleworkspace"
+	c.DirectoryService = service
 
 	return c, nil
 }

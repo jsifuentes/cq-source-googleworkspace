@@ -1,26 +1,24 @@
 # Table: googleworkspace_org_units
 
-This table shows data for Google Workspace Org Units.
+This table shows data for Googleworkspace Org Units.
 
 Google Workspace Org Units
 
-The primary key for this table is **org_unit_path**.
+The primary key for this table is **org_unit_id**.
 
 ## Columns
 
 | Name          | Type          |
 | ------------- | ------------- |
-|_cq_source_name|String|
-|_cq_sync_time|Timestamp|
-|_cq_id|UUID|
-|_cq_parent_id|UUID|
-|customer_id|String|
-|block_inheritance|Bool|
-|description|String|
-|etag|String|
-|kind|String|
-|name|String|
-|org_unit_id|String|
-|org_unit_path (PK)|String|
-|parent_org_unit_id|String|
-|parent_org_unit_path|String|
+|_cq_id|`uuid`|
+|_cq_parent_id|`uuid`|
+|customer_id|`utf8`|
+|block_inheritance|`bool`|
+|description|`utf8`|
+|etag|`utf8`|
+|kind|`utf8`|
+|name|`utf8`|
+|org_unit_id (PK)|`utf8`|
+|org_unit_path|`utf8`|
+|parent_org_unit_id|`utf8`|
+|parent_org_unit_path|`utf8`|

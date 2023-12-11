@@ -3,8 +3,8 @@ package chrome
 import (
 	"context"
 
-	"github.com/cloudquery/plugin-sdk/schema"
-	"github.com/cloudquery/plugin-sdk/transformers"
+	"github.com/cloudquery/plugin-sdk/v4/schema"
+	"github.com/cloudquery/plugin-sdk/v4/transformers"
 	"github.com/jsifuentes/cq-source-googleworkspace/client"
 	directory "google.golang.org/api/admin/directory/v1"
 )
@@ -24,7 +24,7 @@ func ChromeDevicesTable() *schema.Table {
 func fetchChromeDevices(ctx context.Context, meta schema.ClientMeta, _ *schema.Resource, res chan<- any) error {
 	c := meta.(*client.Client)
 
-	return c.DirectoryService.Chromeosdevices.List(c.CustomerID).Pages(ctx, func(devices *directory.ChromeOsDevices) error {
+	return c.DirectoryService.Chromeosdevices.List(c.Spec.CustomerID).Pages(ctx, func(devices *directory.ChromeOsDevices) error {
 		for _, d := range devices.Chromeosdevices {
 			res <- d
 		}

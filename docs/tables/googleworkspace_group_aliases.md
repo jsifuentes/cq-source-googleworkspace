@@ -1,6 +1,6 @@
 # Table: googleworkspace_group_aliases
 
-This table shows data for Google Workspace Group Aliases.
+This table shows data for Googleworkspace Group Aliases.
 
 Google Workspace Group Aliases
 
@@ -14,10 +14,8 @@ This table depends on [googleworkspace_groups](googleworkspace_groups.md).
 
 | Name          | Type          |
 | ------------- | ------------- |
-|_cq_source_name|String|
-|_cq_sync_time|Timestamp|
-|_cq_id|UUID|
-|_cq_parent_id|UUID|
-|group_id (PK)|String|
-|group_primary_email|String|
-|alias (PK)|String|
+|_cq_id|`uuid`|
+|_cq_parent_id|`uuid`|
+|group_id (PK)|`utf8`|
+|group_primary_email|`utf8`|
+|alias (PK)|`utf8`|

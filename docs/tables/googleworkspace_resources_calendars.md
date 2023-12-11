@@ -1,6 +1,6 @@
 # Table: googleworkspace_resources_calendars
 
-This table shows data for Google Workspace Resources Calendars.
+This table shows data for Googleworkspace Resources Calendars.
 
 Google Workspace Resources Calendars
 
@@ -10,22 +10,20 @@ The primary key for this table is **resource_id**.
 
 | Name          | Type          |
 | ------------- | ------------- |
-|_cq_source_name|String|
-|_cq_sync_time|Timestamp|
-|_cq_id|UUID|
-|_cq_parent_id|UUID|
-|customer_id|String|
-|building_id|String|
-|capacity|Int|
-|etags|String|
-|floor_name|String|
-|floor_section|String|
-|generated_resource_name|String|
-|kind|String|
-|resource_category|String|
-|resource_description|String|
-|resource_email|String|
-|resource_id (PK)|String|
-|resource_name|String|
-|resource_type|String|
-|user_visible_description|String|
+|_cq_id|`uuid`|
+|_cq_parent_id|`uuid`|
+|customer_id|`utf8`|
+|building_id|`utf8`|
+|capacity|`int64`|
+|etags|`utf8`|
+|floor_name|`utf8`|
+|floor_section|`utf8`|
+|generated_resource_name|`utf8`|
+|kind|`utf8`|
+|resource_category|`utf8`|
+|resource_description|`utf8`|
+|resource_email|`utf8`|
+|resource_id (PK)|`utf8`|
+|resource_name|`utf8`|
+|resource_type|`utf8`|
+|user_visible_description|`utf8`|

@@ -3,8 +3,8 @@ package domains
 import (
 	"context"
 
-	"github.com/cloudquery/plugin-sdk/schema"
-	"github.com/cloudquery/plugin-sdk/transformers"
+	"github.com/cloudquery/plugin-sdk/v4/schema"
+	"github.com/cloudquery/plugin-sdk/v4/transformers"
 	"github.com/jsifuentes/cq-source-googleworkspace/client"
 	directory "google.golang.org/api/admin/directory/v1"
 )
@@ -24,7 +24,7 @@ func DomainsTable() *schema.Table {
 func fetchDomains(ctx context.Context, meta schema.ClientMeta, _ *schema.Resource, res chan<- any) error {
 	c := meta.(*client.Client)
 
-	domains, err := c.DirectoryService.Domains.List(c.CustomerID).Do()
+	domains, err := c.DirectoryService.Domains.List(c.Spec.CustomerID).Do()
 	if err != nil {
 		return err
 	}

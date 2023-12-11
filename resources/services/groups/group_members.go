@@ -3,8 +3,9 @@ package groups
 import (
 	"context"
 
-	"github.com/cloudquery/plugin-sdk/schema"
-	"github.com/cloudquery/plugin-sdk/transformers"
+	"github.com/apache/arrow/go/v14/arrow"
+	"github.com/cloudquery/plugin-sdk/v4/schema"
+	"github.com/cloudquery/plugin-sdk/v4/transformers"
 	"github.com/jsifuentes/cq-source-googleworkspace/client"
 	directory "google.golang.org/api/admin/directory/v1"
 )
@@ -19,14 +20,14 @@ func GroupMembersTable() *schema.Table {
 			client.CustomerIDColumn,
 			{
 				Name: "group_id",
-				Type: schema.TypeString,
+				Type: arrow.BinaryTypes.String,
 				Resolver: func(_ context.Context, meta schema.ClientMeta, r *schema.Resource, c schema.Column) error {
 					return r.Set(c.Name, r.Parent.Item.(*directory.Group).Id)
 				},
 			},
 			{
 				Name: "group_email",
-				Type: schema.TypeString,
+				Type: arrow.BinaryTypes.String,
 				Resolver: func(_ context.Context, meta schema.ClientMeta, r *schema.Resource, c schema.Column) error {
 					return r.Set(c.Name, r.Parent.Item.(*directory.Group).Email)
 				},

@@ -1,6 +1,6 @@
 # Table: googleworkspace_group_members
 
-This table shows data for Google Workspace Group Members.
+This table shows data for Googleworkspace Group Members.
 
 Google Workspace Group Members
 
@@ -14,18 +14,16 @@ This table depends on [googleworkspace_groups](googleworkspace_groups.md).
 
 | Name          | Type          |
 | ------------- | ------------- |
-|_cq_source_name|String|
-|_cq_sync_time|Timestamp|
-|_cq_id|UUID|
-|_cq_parent_id|UUID|
-|customer_id|String|
-|group_id|String|
-|group_email|String|
-|delivery_settings|String|
-|email|String|
-|etag|String|
-|id (PK)|String|
-|kind|String|
-|role|String|
-|status|String|
-|type|String|
+|_cq_id|`uuid`|
+|_cq_parent_id|`uuid`|
+|customer_id|`utf8`|
+|group_id|`utf8`|
+|group_email|`utf8`|
+|delivery_settings|`utf8`|
+|email|`utf8`|
+|etag|`utf8`|
+|id (PK)|`utf8`|
+|kind|`utf8`|
+|role|`utf8`|
+|status|`utf8`|
+|type|`utf8`|

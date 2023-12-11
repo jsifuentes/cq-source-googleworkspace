@@ -3,15 +3,16 @@ package client
 import (
 	"context"
 
-	"github.com/cloudquery/plugin-sdk/schema"
+	"github.com/apache/arrow/go/v14/arrow"
+	"github.com/cloudquery/plugin-sdk/v4/schema"
 )
 
 var (
 	CustomerIDColumn = schema.Column{
 		Name: "customer_id",
-		Type: schema.TypeString,
-		Resolver: func(_ context.Context, meta schema.ClientMeta, r *schema.Resource, c schema.Column) error {
-			return r.Set(c.Name, meta.(*Client).CustomerID)
+		Type: arrow.BinaryTypes.String,
+		Resolver: func(ctx context.Context, meta schema.ClientMeta, resource *schema.Resource, c schema.Column) error {
+			return resource.Set(c.Name, meta.(*Client).Spec.CustomerID)
 		},
 	}
 )

@@ -3,8 +3,8 @@ package groups
 import (
 	"context"
 
-	"github.com/cloudquery/plugin-sdk/schema"
-	"github.com/cloudquery/plugin-sdk/transformers"
+	"github.com/cloudquery/plugin-sdk/v4/schema"
+	"github.com/cloudquery/plugin-sdk/v4/transformers"
 	"github.com/jsifuentes/cq-source-googleworkspace/client"
 	directory "google.golang.org/api/admin/directory/v1"
 )
@@ -28,7 +28,10 @@ func GroupsTable() *schema.Table {
 func fetchGroups(ctx context.Context, meta schema.ClientMeta, _ *schema.Resource, res chan<- any) error {
 	c := meta.(*client.Client)
 
-	return c.DirectoryService.Groups.List().Customer(c.CustomerID).Pages(ctx, func(groups *directory.Groups) error {
+	return c.DirectoryService.Groups.List().Customer(c.Spec.CustomerID).Pages(ctx, func(groups *directory.Groups) error {
+		if groups == nil {
+			return nil
+		}
 		for _, g := range groups.Groups {
 			res <- g
 		}
