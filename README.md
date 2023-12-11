@@ -42,7 +42,7 @@ spec:
   spec:
     customer_id: your Google Workspace Customer ID
     oauth:
-      # token_file: ./token.js
+      # token_file: ./token.json
       client_id: your Google Cloud Project OAuth Client ID
       client_secret: your Google Cloud Project OAuth Client Secret
 ```
