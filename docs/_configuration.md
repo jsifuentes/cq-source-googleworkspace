@@ -11,7 +11,7 @@ kind: source
 spec:
   name: "googleworkspace"
   path: "jsifuentes/googleworkspace"
-  registry: "github"
+  registry: "cloudquery"
   version: "v1.0.1"
   destinations:
     - "postgresql"
