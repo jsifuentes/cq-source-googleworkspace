@@ -3,6 +3,8 @@
 [![test](https://github.com/jsifuentes/cq-source-googleworkspace/actions/workflows/test.yaml/badge.svg)](https://github.com/jsifuentes/cq-source-googleworkspace/actions/workflows/test.yaml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/jsifuentes/cq-source-googleworkspace)](https://goreportcard.com/report/github.com/jsifuentes/cq-source-googleworkspace)
 
+[View this plugin on CloudQuery Hub](https://hub.cloudquery.io/plugins/source/jsifuentes/googleworkspace/)
+
 A Google Workspace source plugin for CloudQuery that loads data from Google
 Workspace to any database, data warehouse or data lake supported by
 [CloudQuery](https://www.cloudquery.io/), such as PostgreSQL, BigQuery, Athena,
