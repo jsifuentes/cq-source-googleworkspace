@@ -30,7 +30,7 @@ https://support.google.com/a/answer/10070793?hl=en
 
 You can get your own OAuth credentials using
 [this guide](https://developers.google.com/identity/protocols/oauth2#1.-obtain-oauth-2.0-credentials-from-the-dynamic_data.setvar.console_name-.).
-You need to enable the Admin SDK API for your Cloud Project.
+When creating your OAuth Client ID, you should select "Desktop app". You also need to enable the Admin SDK API for your Cloud Project.
 
 ```yaml
 kind: source
