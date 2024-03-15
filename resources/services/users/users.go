@@ -41,7 +41,7 @@ func UsersTable() *schema.Table {
 
 func fetchUsers(ctx context.Context, meta schema.ClientMeta, _ *schema.Resource, res chan<- any) error {
 	c := meta.(*client.Client)
-	return c.DirectoryService.Users.List().Customer(c.Spec.CustomerID).Pages(ctx, func(users *directory.Users) error {
+	return c.DirectoryService.Users.List().Customer(c.Spec.CustomerID).Projection("full").Pages(ctx, func(users *directory.Users) error {
 		for _, u := range users.Users {
 			res <- u
 		}
