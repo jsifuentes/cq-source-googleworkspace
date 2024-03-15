@@ -12,7 +12,7 @@ spec:
   name: "googleworkspace"
   path: "jsifuentes/googleworkspace"
   registry: "cloudquery"
-  version: "v1.0.1"
+  version: "v1.1.0"
   destinations:
     - "postgresql"
   spec:
