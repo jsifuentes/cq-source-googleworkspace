@@ -2,6 +2,7 @@ package client
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/rs/zerolog"
 	"golang.org/x/oauth2/google"
@@ -34,13 +35,19 @@ func New(ctx context.Context, logger zerolog.Logger, s *Spec) (Client, error) {
 	}
 
 	if err := s.validate(); err != nil {
-		return c, err
+		return c, fmt.Errorf("invalid spec: %w", err)
 	}
 
 	opts := []option.ClientOption{}
 
 	if c.Spec.OAuth != nil {
 		tokenSource, err := c.Spec.OAuth.getTokenSource(ctx, google.Endpoint)
+		if err != nil {
+			return c, err
+		}
+		opts = append(opts, option.WithTokenSource(tokenSource))
+	} else if c.Spec.ServiceAccount != nil {
+		tokenSource, err := c.Spec.ServiceAccount.getTokenSource(ctx)
 		if err != nil {
 			return c, err
 		}
