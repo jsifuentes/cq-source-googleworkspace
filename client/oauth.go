@@ -16,6 +16,20 @@ import (
 	directory "google.golang.org/api/admin/directory/v1"
 )
 
+var OAuthScopes = []string{
+	directory.AdminDirectoryCustomerReadonlyScope,
+	directory.AdminDirectoryDomainReadonlyScope,
+	directory.AdminDirectoryGroupMemberReadonlyScope,
+	directory.AdminDirectoryGroupReadonlyScope,
+	directory.AdminDirectoryOrgunitReadonlyScope,
+	directory.AdminDirectoryUserAliasReadonlyScope,
+	directory.AdminDirectoryUserReadonlyScope,
+	directory.AdminDirectoryUserschemaReadonlyScope,
+	directory.AdminDirectoryResourceCalendarReadonlyScope,
+	directory.AdminDirectoryDeviceChromeosReadonlyScope,
+	directory.AdminChromePrintersReadonlyScope,
+}
+
 type oauthSpec struct {
 	TokenFile    string `json:"token_file,omitempty"`
 	ClientID     string `json:"client_id,omitempty"`
@@ -56,20 +70,6 @@ func (o *oauthSpec) saveTokenToFile(token *oauth2.Token) error {
 }
 
 func (o *oauthSpec) getTokenSource(ctx context.Context, endpoint oauth2.Endpoint) (oauth2.TokenSource, error) {
-	scopes := []string{
-		directory.AdminDirectoryCustomerReadonlyScope,
-		directory.AdminDirectoryDomainReadonlyScope,
-		directory.AdminDirectoryGroupMemberReadonlyScope,
-		directory.AdminDirectoryGroupReadonlyScope,
-		directory.AdminDirectoryOrgunitReadonlyScope,
-		directory.AdminDirectoryUserAliasReadonlyScope,
-		directory.AdminDirectoryUserReadonlyScope,
-		directory.AdminDirectoryUserschemaReadonlyScope,
-		directory.AdminDirectoryResourceCalendarReadonlyScope,
-		directory.AdminDirectoryDeviceChromeosReadonlyScope,
-		directory.AdminChromePrintersReadonlyScope,
-	}
-
 	lst, err := net.Listen("tcp4", "127.0.0.1:0")
 	if err != nil {
 		return nil, err
@@ -80,7 +80,7 @@ func (o *oauthSpec) getTokenSource(ctx context.Context, endpoint oauth2.Endpoint
 		ClientSecret: o.ClientSecret,
 		Endpoint:     endpoint,
 		RedirectURL:  "http://" + lst.Addr().String(),
-		Scopes:       scopes,
+		Scopes:       OAuthScopes,
 	}
 
 	if len(o.TokenFile) > 0 {

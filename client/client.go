@@ -45,6 +45,12 @@ func New(ctx context.Context, logger zerolog.Logger, s *Spec) (Client, error) {
 			return c, err
 		}
 		opts = append(opts, option.WithTokenSource(tokenSource))
+	} else if c.Spec.ServiceAccount != nil {
+		tokenSource, err := c.Spec.ServiceAccount.getTokenSource(ctx)
+		if err != nil {
+			return c, err
+		}
+		opts = append(opts, option.WithTokenSource(tokenSource))
 	}
 
 	service, err := directory.NewService(ctx, opts...)
