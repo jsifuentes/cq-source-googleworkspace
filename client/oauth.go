@@ -72,7 +72,7 @@ func (o *oauthSpec) saveTokenToFile(token *oauth2.Token) error {
 func (o *oauthSpec) getTokenSource(ctx context.Context, endpoint oauth2.Endpoint) (oauth2.TokenSource, error) {
 	lst, err := net.Listen("tcp4", "127.0.0.1:0")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to listen: %v", err)
 	}
 
 	config := &oauth2.Config{
@@ -88,12 +88,15 @@ func (o *oauthSpec) getTokenSource(ctx context.Context, endpoint oauth2.Endpoint
 		if err == nil {
 			return config.TokenSource(context.Background(), savedToken), nil
 		} else if o.ClientID == "" || o.ClientSecret == "" {
-			return nil, err
+			return nil, fmt.Errorf("failed to get token from file: %v", err)
 		}
 	}
 
 	b := make([]byte, 16)
-	rand.Read(b)
+	_, err = rand.Read(b)
+	if err != nil {
+		return nil, fmt.Errorf("failed to generate state: %v", err)
+	}
 	state := strings.TrimRight(base64.URLEncoding.EncodeToString(b), "=")
 
 	handler := &oauthHandler{
@@ -114,18 +117,18 @@ func (o *oauthSpec) getTokenSource(ctx context.Context, endpoint oauth2.Endpoint
 	}
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to complete OAuth authorization: %v", err)
 	}
 
 	// we have exchange token now
 	token, err := config.Exchange(ctx, handler.code, oauth2.AccessTypeOffline)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to exchange token: %v", err)
 	}
 
 	if o.TokenFile != "" {
 		if err := o.saveTokenToFile(token); err != nil {
-			return nil, err
+			return nil, fmt.Errorf("failed to save token to file: %v", err)
 		}
 	}
 

@@ -27,8 +27,9 @@ func TestSpecValidate(t *testing.T) {
 			wantErr: true,
 			errMsg:  `only one of "oauth" or "service_account" can be specified`,
 		},
+		// OAuth
 		{
-			name: "valid OAuth",
+			name: "valid OAuth specified",
 			spec: Spec{
 				CustomerID: "customer_id",
 				OAuth: &oauthSpec{
@@ -39,29 +40,31 @@ func TestSpecValidate(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "invalid OAuth - missing ClientID",
+			name: "invalid OAuth specified: missing ClientID",
 			spec: Spec{
 				CustomerID: "customer_id",
 				OAuth: &oauthSpec{
-					ClientSecret: "client_secret",
+					ClientID: "",
 				},
 			},
 			wantErr: true,
-			errMsg:  "empty client_id in oauth spec",
+			errMsg:  "invalid oauth config: empty client_id in oauth spec",
 		},
 		{
-			name: "invalid OAuth - missing ClientSecret",
+			name: "invalid OAuth specified: missing ClientSecret",
 			spec: Spec{
 				CustomerID: "customer_id",
 				OAuth: &oauthSpec{
-					ClientID: "client_id",
+					ClientID:     "client_id",
+					ClientSecret: "",
 				},
 			},
 			wantErr: true,
-			errMsg:  "empty client_secret in oauth spec",
+			errMsg:  "invalid oauth config: empty client_secret in oauth spec",
 		},
+		// Service Account
 		{
-			name: "valid ServiceAccount",
+			name: "valid ServiceAccount specified",
 			spec: Spec{
 				CustomerID: "customer_id",
 				ServiceAccount: &serviceAccountSpec{
@@ -72,26 +75,27 @@ func TestSpecValidate(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "invalid ServiceAccount - missing JSONString",
+			name: "invalid ServiceAccount: missing JSONString",
 			spec: Spec{
 				CustomerID: "customer_id",
 				ServiceAccount: &serviceAccountSpec{
-					ImpersonateEmail: "impersonate_email",
+					JSONString: "",
 				},
 			},
 			wantErr: true,
-			errMsg:  `required field "json_string" is missing. It should be equal to the service account JSON string`,
+			errMsg:  `invalid service_account config: required field "json_string" is missing. It should be equal to the service account JSON string`,
 		},
 		{
-			name: "invalid ServiceAccount - missing ImpersonateEmail",
+			name: "invalid ServiceAccount: missing ImpersonateEmail",
 			spec: Spec{
 				CustomerID: "customer_id",
 				ServiceAccount: &serviceAccountSpec{
-					JSONString: "json_string",
+					JSONString:       "json_string",
+					ImpersonateEmail: "",
 				},
 			},
 			wantErr: true,
-			errMsg:  `required field "impersonate_email" is missing. It should be equal to the email address of the user to impersonate`,
+			errMsg:  `invalid service_account config: required field "impersonate_email" is missing. It should be equal to the email address of the user to impersonate`,
 		},
 	}
 

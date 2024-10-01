@@ -2,6 +2,7 @@ package client
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/rs/zerolog"
 	"golang.org/x/oauth2/google"
@@ -34,7 +35,7 @@ func New(ctx context.Context, logger zerolog.Logger, s *Spec) (Client, error) {
 	}
 
 	if err := s.validate(); err != nil {
-		return c, err
+		return c, fmt.Errorf("invalid spec: %w", err)
 	}
 
 	opts := []option.ClientOption{}

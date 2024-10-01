@@ -20,13 +20,13 @@ func (s *Spec) validate() error {
 
 	if s.OAuth != nil {
 		if err := s.OAuth.validate(); err != nil {
-			return err
+			return fmt.Errorf("invalid oauth config: %w", err)
 		}
 	}
 
 	if s.ServiceAccount != nil {
 		if err := s.ServiceAccount.validate(); err != nil {
-			return err
+			return fmt.Errorf("invalid service_account config: %w", err)
 		}
 	}
 
