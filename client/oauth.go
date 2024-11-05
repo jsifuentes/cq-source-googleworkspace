@@ -10,8 +10,10 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"runtime"
 	"strings"
 
+	"github.com/rs/zerolog"
 	"golang.org/x/oauth2"
 	directory "google.golang.org/api/admin/directory/v1"
 )
@@ -69,7 +71,7 @@ func (o *oauthSpec) saveTokenToFile(token *oauth2.Token) error {
 	return json.NewEncoder(f).Encode(token)
 }
 
-func (o *oauthSpec) getTokenSource(ctx context.Context, endpoint oauth2.Endpoint) (oauth2.TokenSource, error) {
+func (o *oauthSpec) getTokenSource(ctx context.Context, logger zerolog.Logger, endpoint oauth2.Endpoint) (oauth2.TokenSource, error) {
 	lst, err := net.Listen("tcp4", "127.0.0.1:0")
 	if err != nil {
 		return nil, fmt.Errorf("failed to listen: %v", err)
@@ -108,7 +110,23 @@ func (o *oauthSpec) getTokenSource(ctx context.Context, endpoint oauth2.Endpoint
 
 	go func() {
 		defer srv.Close()
-		_ = exec.CommandContext(ctx, "open", config.AuthCodeURL(state, oauth2.AccessTypeOffline)).Run()
+
+		url := config.AuthCodeURL(state, oauth2.AccessTypeOffline)
+
+		var openErr error
+		switch runtime.GOOS {
+		case "windows":
+			openErr = exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
+		case "darwin":
+			openErr = exec.Command("open", url).Start()
+		case "linux":
+			openErr = exec.Command("xdg-open", url).Start()
+		}
+
+		if openErr != nil {
+			logger.Err(openErr).Msg("unable to open browser automatically to the authorization URL")
+		}
+
 		err = <-handler.err
 	}()
 

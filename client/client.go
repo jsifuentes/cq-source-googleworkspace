@@ -41,7 +41,7 @@ func New(ctx context.Context, logger zerolog.Logger, s *Spec) (Client, error) {
 	opts := []option.ClientOption{}
 
 	if c.Spec.OAuth != nil {
-		tokenSource, err := c.Spec.OAuth.getTokenSource(ctx, google.Endpoint)
+		tokenSource, err := c.Spec.OAuth.getTokenSource(ctx, logger, google.Endpoint)
 		if err != nil {
 			return c, err
 		}
