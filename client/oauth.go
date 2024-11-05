@@ -113,18 +113,18 @@ func (o *oauthSpec) getTokenSource(ctx context.Context, logger zerolog.Logger, e
 
 		url := config.AuthCodeURL(state, oauth2.AccessTypeOffline)
 
-		var openErr error
 		switch runtime.GOOS {
 		case "windows":
-			openErr = exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
+			err = exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
 		case "darwin":
-			openErr = exec.Command("open", url).Start()
+			err = exec.Command("open", url).Start()
 		case "linux":
-			openErr = exec.Command("xdg-open", url).Start()
+			err = exec.Command("xdg-open", url).Start()
 		}
 
-		if openErr != nil {
-			logger.Err(openErr).Msg("unable to open browser automatically to the authorization URL")
+		if err != nil {
+			logger.Err(err).Msg("unable to open browser automatically to the authorization URL")
+			return
 		}
 
 		err = <-handler.err
