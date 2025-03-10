@@ -33,7 +33,7 @@ spec:
   name: "googleworkspace"
   path: "jsifuentes/googleworkspace"
   registry: "cloudquery"
-  version: "v1.2.0"
+  version: "v1.2.1"
   destinations:
     - "sqlite"
   spec:
